@@ -1,4 +1,5 @@
-from pprint import pprint
+# Shopping spree algorithm
+# By: Kyle Huang
 # k = max weight carried for a person
 # wt[] = weight of object
 # val[] = P price
