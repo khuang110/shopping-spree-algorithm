@@ -1,9 +1,11 @@
 # Shopping spree algorithm
 # By: Kyle Huang
+
 # k = max weight carried for a person
 # wt[] = weight of object
 # val[] = P price
 # n = n items
+# returns matrix of solutions for knapsack
 def shopping(k, wt, val, n):
     # Base case if not enough elements
     if n < 1 or k < 1:
@@ -22,6 +24,8 @@ def shopping(k, wt, val, n):
     return v
 
 
+# Function to check which items are contained in the knapsack
+# returns list of items
 def in_knapsack(v, w, n, wt):
     items = []
     for i in range(n, 1, -1):
@@ -33,6 +37,7 @@ def in_knapsack(v, w, n, wt):
             i = i - 1
     return items
 
+
 # get file as list
 def get_data():
     lines = []
@@ -41,6 +46,9 @@ def get_data():
     return lines
 
 
+# process the data from shopping.txt
+# sorts data into list of dicts
+# each dict contains required info to solve problem for 1 family
 def process_data(data):
     i = 0
     t = int(data[0])
@@ -71,6 +79,7 @@ def process_data(data):
         curr += 1
     return test_cases
 
+# Function to write output to results.txt file
 def output_to_file(case_num, total_price, mem_items):
     results = open("results.txt", "a")
     results.write("Test Case: %d\n" % (case_num))
@@ -78,7 +87,7 @@ def output_to_file(case_num, total_price, mem_items):
     for member, item in enumerate(mem_items):
         results.write('{0}: {1}\n'.format(member+1, (' '.join(map(str, item)))))
 
-
+# driver function
 def main():
     test_cases = process_data(get_data())
 
