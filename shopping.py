@@ -1,3 +1,4 @@
+import os # remove results file
 # Shopping spree algorithm
 # By: Kyle Huang
 
@@ -13,7 +14,7 @@ def shopping(k, wt, val, n):
 
     w = max(wt)
     # init matrix for n elements X k
-    v = [[0 for _ in range(k+1)] for _ in range(n + 1)]
+    v = [[0 for _ in range(k + 1)] for _ in range(n + 1)]
 
     for i in range(1, n + 1):
         for weight in range(k + 1):
@@ -53,7 +54,7 @@ def process_data(data):
     i = 0
     t = int(data[0])
     # init list of dict of length t
-    test_cases = [{}]*t
+    test_cases = [{}] * t
     i = 1
     curr = 0
     # loop to fill each dict
@@ -63,7 +64,7 @@ def process_data(data):
         w = []
         m = []
         # range in data array for test case items
-        for k in range(0+i+1, n+i+1):
+        for k in range(0 + i + 1, n + i + 1):
             elem = data[k].split()
             p.append(int(elem[0]))
             w.append((int(elem[1])))
@@ -71,7 +72,7 @@ def process_data(data):
         i = i + n + 1
         f = int(data[i])
         # range in data array for weight carried by ith person
-        for k in range(0+i+1, f+i+1):
+        for k in range(0 + i + 1, f + i + 1):
             m.append(int(data[k]))
         i = i + f + 1
         # fill dictinary
@@ -79,24 +80,31 @@ def process_data(data):
         curr += 1
     return test_cases
 
+
 # Function to write output to results.txt file
 def output_to_file(case_num, total_price, mem_items):
     results = open("results.txt", "a")
     results.write("Test Case: %d\n" % (case_num))
     results.write("Total Price: %d\n" % (total_price))
     for member, item in enumerate(mem_items):
-        results.write('{0}: {1}\n'.format(member+1, (' '.join(map(str, item)))))
+        if len(item) == 0:
+            item = [0]
+        results.write('{0}: {1}\n'.format(member + 1, (' '.join(map(str, item)))))
+
 
 # driver function
 def main():
+    # remove results.txt
+    os.remove("./results.txt")
     test_cases = process_data(get_data())
+    case_num = 1
 
     # loop through T test cases
     for test_case in test_cases:
         # Max price of each family member
         total_price = 0
         items = [[]]
-        case_num = 1
+
         # iterate over number of people in each family
         for mem in test_case["M"]:
             v = shopping(mem, test_case["W"], test_case["P"], test_case["N"])
@@ -107,5 +115,5 @@ def main():
         case_num += 1
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()
